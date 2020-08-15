@@ -1,9 +1,9 @@
 using System;
 using Xunit;
 
-namespace ParkingBisinessLogicTest
+namespace Parking.Domain.Test
 {
-    public class UnitTest1
+    public class ParkingDomainTest
     {
         [Fact]
         public void Test1()
