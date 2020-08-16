@@ -12,7 +12,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 
-namespace Parking.Droid.Features.VehicleList
+namespace Parking.Droid
 {
     [Activity(Label = "VehicleListActivity")]
     public class VehicleListActivity : AppCompatActivity
