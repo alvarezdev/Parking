@@ -6,33 +6,44 @@ namespace Parking.Data
 {
     public class VehiculeDaoMock : IVehicleDao
     {
+        private List<VehicleDto> vehicleList;
+
         public VehiculeDaoMock()
         {
+            vehicleList = new List<VehicleDto>();
         }
 
         public void AddVehicle(VehicleDto vehicleDto)
         {
-            throw new NotImplementedException();
+            vehicleList.Add(vehicleDto);
         }
 
         public void DeleteAll()
         {
-            throw new NotImplementedException();
+            if (vehicleList.Count > 0)            
+                vehicleList.Clear();            
         }
 
         public void DeleteVehicle(VehicleDto vehicleDto)
         {
-            throw new NotImplementedException();
+            if (GetVehicle(vehicleDto.Plate) != null)            
+                vehicleList.Remove(vehicleDto);            
         }
 
         public List<VehicleDto> GetListVehicle()
         {
-            throw new NotImplementedException();
+            return vehicleList;
         }
 
         public VehicleDto GetVehicle(string plate)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < vehicleList.Count; i++)
+            {
+                VehicleDto vehicleDto = vehicleList[i];
+                if (vehicleDto.Plate.Equals(plate))                
+                    return vehicleDto;                
+            }
+            return null;
         }
     }
 }

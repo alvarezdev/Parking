@@ -23,7 +23,10 @@ namespace Parking.Domain
 
         private readonly IVehicleDao vehicleDao;
 
-        public ParkingDomain() { }
+        public ParkingDomain(IVehicleDao vehicleDao)
+        {
+            this.vehicleDao = vehicleDao;
+        }
 
         public void DeleteAll()
         {
@@ -112,10 +115,10 @@ namespace Parking.Domain
             vehicleDao.DeleteVehicle(vehicleDto);
         }
 
-    /*public int CalculateValueParking(VehicleDto vehicleDto)
+        public int CalculateValueParking(VehicleDto vehicleDto)
         {
-            long entryHour = TimeUnit.MILLISECONDS.toHours(vehicleDto.getVehicleEntryTime().getTime());
-            long departureHour = TimeUnit.MILLISECONDS.toHours(vehicleDto.getVehicleDepartureTime().getTime());
+            long entryHour = (long)vehicleDto.VehicleEntryTime.Subtract(new DateTime(1970, 1, 1)).TotalHours;
+            long departureHour = (long)vehicleDto.VehicleDepartureTime.Subtract(new DateTime(1970, 1, 1)).TotalHours;
             int time = (int)(departureHour - entryHour);
             if (time == 0)            
                 time++;           
@@ -150,7 +153,7 @@ namespace Parking.Domain
             if (vehicleDto.VehicleType == VehicleType.Motorcycle && vehicleDto.CylinderCapacity > cylinderCapacityGreater)            
                 result += addMotorcyclePay;            
             return result;
-        }*/
+        }
 
     }
 }
