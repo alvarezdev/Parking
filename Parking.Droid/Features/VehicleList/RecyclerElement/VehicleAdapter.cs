@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
 using Parking.Domain;
 
 namespace Parking.Droid
@@ -40,7 +41,7 @@ namespace Parking.Droid
             };
         }       
 
-        /*public void Filter(string text)
+        public void Filter(string text)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -49,21 +50,17 @@ namespace Parking.Droid
             }
             else
             {
-                List<VehicleDto> vehicleDtoList = new ArrayList<>();
-                for (VehicleDto vehicle:vehicleListActivity.getUserList())
+                List<VehicleDto> vehicleDtoList = new List<VehicleDto>();
+                foreach (var vehicle in vehicleListActivity.GetUserList())
                 {
-                    if (vehicle.getPlate().contains(text))
-                    {
-                        vehicleDtoList.add(vehicle);
-                    }
+                    if (vehicle.Plate.Contains(text))                    
+                        vehicleDtoList.Add(vehicle); 
                 }
                 vehicleList = vehicleDtoList;
             }
-            if (vehicleList.size() == 0)
-            {
-                Toast.makeText(vehicleListActivity, R.string.list_is_empty, Toast.LENGTH_SHORT).show();
-            }
-            notifyDataSetChanged();
-        }*/
+            if (vehicleList.Count == 0)            
+                Toast.MakeText(vehicleListActivity, Resource.String.list_is_empty, ToastLength.Short).Show();            
+            NotifyDataSetChanged();
+        }
     }
 }

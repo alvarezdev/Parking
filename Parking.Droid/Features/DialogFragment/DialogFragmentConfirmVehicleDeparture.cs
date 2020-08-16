@@ -32,19 +32,28 @@ namespace Parking.Droid
             this.vehicleListActivity = vehicleListActivity;
         }
 
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-        }
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            View view = inflater.Inflate(Resource.Layout.dialog_fragment_confirm_vehicle_departure, container, false);
+            payMessage = view.FindViewById<TextView>(Resource.Id.pay_message);
+            accept = view.FindViewById<Button>(Resource.Id.accept_dialog);
+            cancel = view.FindViewById<Button>(Resource.Id.cancel_dialog);
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            int valuePayForParking = vehicleListActivity.CalculateValueParking(vehicleDto);
+
+            payMessage.Text = GetString(Resource.String.text_pay_message_dialog_fragment) + " " + valuePayForParking;
+
+            accept.Click += delegate
+            {
+                vehicleListActivity.DeleteVehicleFromDialogFragment(vehicleDto, position);
+                Dialog.Dismiss();
+            };
+
+            cancel.Click += delegate {
+                Dialog.Dismiss();
+            };
+
+            return view;
         }
     }
 }
