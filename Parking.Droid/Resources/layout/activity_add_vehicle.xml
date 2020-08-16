@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout_add_vehicle"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title_add_vehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:text="@string/text_button_add_vehicles" />
+        <EditText
+            android:id="@+id/input_plate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:inputType="textAutoCorrect|textMultiLine|textCapCharacters"
+            android:hint="@string/hint_edit_text_plate"
+            android:ems="8"
+            android:maxLength="6" />
+        <EditText
+            android:id="@+id/input_cylinder_capacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:inputType="number"
+            android:hint="@string/hint_edit_text_cylinder"
+            android:ems="8"
+            android:maxLength="4" />
+        <RadioGroup
+            android:id="@+id/radio_group_vehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_button_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_button_car"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radio_button_motorcycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_button_motorcycle" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_buttons_add_car"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_cancel_add_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorBlack"
+                android:textSize="14dp"
+                android:text="@string/text_button_cancel" />
+            <Button
+                android:id="@+id/btn_accept_add_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorBlack"
+                android:textSize="14dp"
+                android:text="@string/text_button_accept" />
+        </LinearLayout>
+    </LinearLayout>

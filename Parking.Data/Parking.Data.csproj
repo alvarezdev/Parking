@@ -11,4 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Parking.Domain\Parking.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Realm" Version="4.3.0" />
+  </ItemGroup>
 </Project>
