@@ -9,12 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking.Domain.Test", "Park
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking.Droid", "Parking.Droid\Parking.Droid.csproj", "{D836186A-B157-4D4A-931B-C7D55B385568}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking.Droid.Test", "Parking.Droid.Test\Parking.Droid.Test.csproj", "{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-		Debug-Mocks|Any CPU = Debug-Mocks|Any CPU
-		Release-Mocks|Any CPU = Release-Mocks|Any CPU
 		ReleaseMocks|Any CPU = ReleaseMocks|Any CPU
 		DebugMocks|Any CPU = DebugMocks|Any CPU
 	EndGlobalSection
@@ -23,17 +23,41 @@ Global
 		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.DebugMocks|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.DebugMocks|Any CPU.Build.0 = Debug|Any CPU
+		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.ReleaseMocks|Any CPU.ActiveCfg = Release|Any CPU
+		{6E0CBB18-F413-41CC-82C7-73C70CEE38B6}.ReleaseMocks|Any CPU.Build.0 = Release|Any CPU
 		{8F258583-1401-4922-94E6-7B7649A9C6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F258583-1401-4922-94E6-7B7649A9C6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F258583-1401-4922-94E6-7B7649A9C6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F258583-1401-4922-94E6-7B7649A9C6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F258583-1401-4922-94E6-7B7649A9C6BB}.DebugMocks|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F258583-1401-4922-94E6-7B7649A9C6BB}.DebugMocks|Any CPU.Build.0 = Debug|Any CPU
+		{8F258583-1401-4922-94E6-7B7649A9C6BB}.ReleaseMocks|Any CPU.ActiveCfg = Release|Any CPU
+		{8F258583-1401-4922-94E6-7B7649A9C6BB}.ReleaseMocks|Any CPU.Build.0 = Release|Any CPU
 		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.DebugMocks|Any CPU.ActiveCfg = Debug|Any CPU
+		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.DebugMocks|Any CPU.Build.0 = Debug|Any CPU
+		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.ReleaseMocks|Any CPU.ActiveCfg = Release|Any CPU
+		{86781454-4FC2-4A9C-9729-97696CAFF9AB}.ReleaseMocks|Any CPU.Build.0 = Release|Any CPU
 		{D836186A-B157-4D4A-931B-C7D55B385568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D836186A-B157-4D4A-931B-C7D55B385568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D836186A-B157-4D4A-931B-C7D55B385568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D836186A-B157-4D4A-931B-C7D55B385568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D836186A-B157-4D4A-931B-C7D55B385568}.DebugMocks|Any CPU.ActiveCfg = Debug|Any CPU
+		{D836186A-B157-4D4A-931B-C7D55B385568}.DebugMocks|Any CPU.Build.0 = Debug|Any CPU
+		{D836186A-B157-4D4A-931B-C7D55B385568}.ReleaseMocks|Any CPU.ActiveCfg = Release|Any CPU
+		{D836186A-B157-4D4A-931B-C7D55B385568}.ReleaseMocks|Any CPU.Build.0 = Release|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.ReleaseMocks|Any CPU.ActiveCfg = Release|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.ReleaseMocks|Any CPU.Build.0 = Release|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.DebugMocks|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E836E9-323A-4F1C-AE2E-4CD8712CBDE1}.DebugMocks|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
