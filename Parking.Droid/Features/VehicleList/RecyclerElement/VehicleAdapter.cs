@@ -32,14 +32,21 @@ namespace Parking.Droid
             VehicleDto vehicleDto = vehicleList.ElementAt(position);
             VehicleItemList vehicleItemList = vehicleHolder as VehicleItemList;
             vehicleItemList.BindVehicle(vehicleDto);
-            vehicleItemList.leave.Click += delegate {
-                VehicleDto vehicle = vehicleList.ElementAt(position);
-                DialogFragmentConfirmVehicleDeparture confirmVehicleDeparture =
-                        new DialogFragmentConfirmVehicleDeparture(vehicle, position, vehicleListActivity);
-                confirmVehicleDeparture.Show(vehicleListActivity.SupportFragmentManager.BeginTransaction(),
-                        "confirmVehicleDeparture");
-            };
-        }       
+            vehicleItemList.leave.Click -= ShowDialogConfirm;
+            vehicleItemList.leave.Click += ShowDialogConfirm;
+            vehicleItemList.leave.Tag = position;
+        }
+
+        private void ShowDialogConfirm(object sender, EventArgs args)
+        {
+            View view = sender as View;
+            int position = (int)view.Tag;
+            VehicleDto vehicle = vehicleList.ElementAt(position);
+            DialogFragmentConfirmVehicleDeparture confirmVehicleDeparture =
+                    new DialogFragmentConfirmVehicleDeparture(vehicle, position, vehicleListActivity);
+            confirmVehicleDeparture.Show(vehicleListActivity.SupportFragmentManager.BeginTransaction(),
+                    "confirmVehicleDeparture");
+        }
 
         public void Filter(string text)
         {

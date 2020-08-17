@@ -36,14 +36,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\ParkingDroidTest.cs" />
-    <Compile Include="Features\Pages\BasePage.cs" />
+    <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\HomePage.cs" />
+    <Compile Include="Pages\AddVehiclePage.cs" />
+    <Compile Include="Pages\VehicleListPage.cs" />
+    <Compile Include="Pages\ConfirmVehicleDeparturePage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
-    <Folder Include="Features\Pages\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Parking.Droid\Parking.Droid.csproj">
