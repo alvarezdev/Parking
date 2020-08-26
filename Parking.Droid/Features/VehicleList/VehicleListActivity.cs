@@ -7,6 +7,7 @@ using Android.Arch.Lifecycle;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
+using Android.Util;
 using Android.Widget;
 using Parking.Domain;
 
@@ -15,6 +16,8 @@ namespace Parking.Droid
     [Activity(Label = "@string/app_name")]
     public class VehicleListActivity : AppCompatActivity
     {
+        private const string TAG = "VehicleListActivity";
+
         private EditText inputSearch;
         private RecyclerView vehicleRecyclerView;
         private VehicleAdapter vehicleAdapter;
@@ -40,13 +43,27 @@ namespace Parking.Droid
             };
             vehicleRecyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view_vehicle_list);
             vehicleRecyclerView.SetLayoutManager(new LinearLayoutManager(this));
-            vehicleAdapter = new VehicleAdapter(GetUserList(), this);
+            vehicleAdapter = new VehicleAdapter(GetVehicleList(), this);
             vehicleRecyclerView.SetAdapter(vehicleAdapter);
         }
 
-        public List<VehicleDto> GetUserList()
+        public List<VehicleDto> GetVehicleList()
         {
-            return vehicleListViewModel.GetUserList();
+            try
+            {
+                return vehicleListViewModel.GetUserList();
+            }
+            catch (DataBaseException e)
+            {
+                Log.Error(TAG, e.Message);
+                Toast.MakeText(this, e.Message, ToastLength.Short).Show();
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e.Message);
+                Toast.MakeText(this, Resource.String.error_message, ToastLength.Short).Show();
+            }
+            return new List<VehicleDto>();        
         }
 
         public int CalculateValueParking(VehicleDto vehicleDto)
@@ -57,7 +74,21 @@ namespace Parking.Droid
 
         public void DeleteVehicleFromDialogFragment(VehicleDto vehicleDto, int position)
         {
-            vehicleListViewModel.DeleteVehicle(vehicleDto);
+            try
+            {
+                vehicleListViewModel.DeleteVehicle(vehicleDto);
+            }
+            catch (DataBaseException e)
+            {
+                Log.Error(TAG, e.Message);
+                Toast.MakeText(this, e.Message, ToastLength.Short).Show();
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e.Message);
+                Toast.MakeText(this, Resource.String.error_message, ToastLength.Short).Show();
+            }
+            
             vehicleAdapter.vehicleList.RemoveAt(position);
             inputSearch.Text = "";
             vehicleAdapter.NotifyDataSetChanged();

@@ -21,12 +21,16 @@ namespace Parking.Domain
             VehicleEntryTime = vehicleDto.VehicleEntryTime;
         }
 
-        internal void ValidateData(VehicleModel vehicle)
+        public void ValidateData(VehicleModel vehicle)
         {
-            if (string.IsNullOrEmpty(vehicle.Plate))            
-                throw new BusinessException(nullVehiclePlateMsg);            
-            if (vehicle.CylinderCapacity <= 0)            
-                throw new BusinessException(zeroCylinderCapacityMsg);            
+            if (string.IsNullOrEmpty(vehicle.Plate))
+            {
+                throw new BusinessException(nullVehiclePlateMsg);
+            }                           
+            if (vehicle.CylinderCapacity <= 0)
+            {
+                throw new BusinessException(zeroCylinderCapacityMsg);
+            }                            
         }
     }
 }

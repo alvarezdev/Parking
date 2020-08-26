@@ -14,13 +14,15 @@ namespace Parking.Domain.Test
         {
             DIContainer = new UnityContainer();
             ParkingDomainTestAux = new ParkingDomainTestAux();
-            DIContainer.RegisterType<IVehicleDao, VehiculeDaoMock>();
+            DIContainer.RegisterType<IVehicleDao, VehicleDaoMock>();
         }
 
         public static TRequest Resolve<TRequest>()
         {
-            if (DIContainer == null)            
+            if (DIContainer == null)
+            {
                 throw new InvalidOperationException("The injection container is not ready");
+            }                
             return DIContainer.Resolve<TRequest>();
         }
     }

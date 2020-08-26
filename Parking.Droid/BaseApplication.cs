@@ -22,7 +22,9 @@ namespace Parking.Droid
         public static TRequest Resolve<TRequest>()
         {
             if (DIContainer == null)
+            {
                 throw new InvalidOperationException("The injection container is not ready");
+            }                
             return DIContainer.Resolve<TRequest>();
         }
 

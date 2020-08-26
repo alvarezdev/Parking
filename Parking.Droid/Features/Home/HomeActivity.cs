@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
@@ -22,16 +23,22 @@ namespace Parking.Droid
         private void InitComponent()
         {
             addVehicle = FindViewById<Button>(Resource.Id.button_add_vehicle);
-            addVehicle.Click += delegate {
-                Intent intent = new Intent(this, typeof(AddVehicleActivity));
-                StartActivity(intent);
-            };
+            addVehicle.Click += OpenAddVehicle;
 
             showVehicleList = FindViewById<Button>(Resource.Id.button_get_vehicles);
-            showVehicleList.Click += delegate {
-                Intent intent = new Intent(this, typeof(VehicleListActivity));
-                StartActivity(intent);
-            };
+            showVehicleList.Click += OpenVehicleList;
+        }
+
+        private void OpenAddVehicle(object sender, EventArgs args)
+        {
+            Intent intent = new Intent(this, typeof(AddVehicleActivity));
+            StartActivity(intent);
+        }
+
+        private void OpenVehicleList(object sender, EventArgs args)
+        {
+            Intent intent = new Intent(this, typeof(VehicleListActivity));
+            StartActivity(intent);
         }
     }
 }

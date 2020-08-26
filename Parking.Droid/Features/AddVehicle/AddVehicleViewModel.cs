@@ -1,16 +1,15 @@
-﻿using System;
-using Android.Arch.Lifecycle;
+﻿using Android.Arch.Lifecycle;
 using Parking.Domain;
 
 namespace Parking.Droid
 {
     public class AddVehicleViewModel : ViewModel
     {
-        private readonly ParkingDomain parkingDomain;
+        private readonly ParkingDomainServices parkingDomain;
 
         public AddVehicleViewModel()
         {
-            parkingDomain = BaseApplication.Resolve<ParkingDomain>();
+            parkingDomain = BaseApplication.Resolve<ParkingDomainServices>();
         }
 
         public void AddVehicle(VehicleDto vehicleDto)

@@ -14,10 +14,14 @@ namespace Parking.Domain.Test
             for (int i = 0; i < 30; i++)
             {
                 string plate;
-                if (i >= 0 && i <= 9)                
-                    plate = "FIS10" + i;                
-                else                
+                if (i >= 0 && i <= 9)
+                {
+                    plate = "FIS10" + i;
+                }                                    
+                else
+                {
                     plate = "FIS1" + i;
+                }                    
                 
                 VehicleDto vehicleDto = new VehicleDto();
                 vehicleDto.Plate = plate;
@@ -43,10 +47,14 @@ namespace Parking.Domain.Test
             for (int i = 0; i < 20; i++)
             {
                 string plate;
-                if (i >= 0 && i <= 9)                
-                    plate = "FIS10" + i;                
-                else                
+                if (i >= 0 && i <= 9)
+                {
+                    plate = "FIS10" + i;
+                }                                   
+                else
+                {
                     plate = "FIS1" + i;
+                }                   
 
                 VehicleDto vehicleDto = new VehicleDto
                 {

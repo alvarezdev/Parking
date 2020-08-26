@@ -17,5 +17,7 @@
     <string name="text_button_leave_vehicle">Salir</string>
     <string name="text_pay_message_dialog_fragment">Valor a pagar es: </string>
     <string name="add_vehicle_message_successful">Se agrego vehículo exitosamente</string>
+    <string name="add_vehicle_message_error">Ha ocurrido un error guardando el vehiculo, intete de nuevo por favor</string>
+    <string name="error_message">Ha ocurrido un error, intete de nuevo por favor</string>
     <string name="list_is_empty">No se ha encontrado ningun vehículo con esa placa</string>
 </resources>

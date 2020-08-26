@@ -7,16 +7,16 @@ namespace Parking.Droid
 {
     public class VehicleListViewModel : ViewModel
     {
-        private readonly ParkingDomain parkingDomain;
+        private readonly ParkingDomainServices parkingDomain;
 
         public VehicleListViewModel()
         {
-            parkingDomain = BaseApplication.Resolve<ParkingDomain>();
+            parkingDomain = BaseApplication.Resolve<ParkingDomainServices>();
         }
 
         public List<VehicleDto> GetUserList()
         {
-            return parkingDomain.GetListVehicle();
+            return parkingDomain.GetVehicleList();
         }
 
         public void DeleteVehicle(VehicleDto vehicleDto)

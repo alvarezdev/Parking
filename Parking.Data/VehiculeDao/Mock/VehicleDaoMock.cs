@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Parking.Domain;
 
 namespace Parking.Data
 {
-    public class VehiculeDaoMock : IVehicleDao
+    public class VehicleDaoMock : IVehicleDao
     {
         private List<VehicleDto> vehicleList;
 
-        public VehiculeDaoMock()
+        public VehicleDaoMock()
         {
             vehicleList = new List<VehicleDto>();
         }
@@ -20,17 +19,22 @@ namespace Parking.Data
 
         public void DeleteAll()
         {
-            if (vehicleList.Count > 0)            
-                vehicleList.Clear();            
+            if (vehicleList.Count > 0)
+            {
+                vehicleList.Clear();
+            }                           
         }
 
         public void DeleteVehicle(VehicleDto vehicleDto)
         {
-            if (GetVehicle(vehicleDto.Plate) != null)            
-                vehicleList.Remove(vehicleDto);            
+            if (GetVehicle(vehicleDto.Plate) != null)
+            {
+                vehicleList.Remove(vehicleDto);
+            }
+                           
         }
 
-        public List<VehicleDto> GetListVehicle()
+        public List<VehicleDto> GetVehicleList()
         {
             return vehicleList;
         }

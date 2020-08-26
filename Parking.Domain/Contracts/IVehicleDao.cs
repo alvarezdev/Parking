@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Parking.Domain
 {
@@ -7,7 +6,7 @@ namespace Parking.Domain
     {
         void AddVehicle(VehicleDto vehicleDto);
         VehicleDto GetVehicle(string plate);
-        List<VehicleDto> GetListVehicle();
+        List<VehicleDto> GetVehicleList();
         void DeleteVehicle(VehicleDto vehicleDto);
         void DeleteAll();
     }

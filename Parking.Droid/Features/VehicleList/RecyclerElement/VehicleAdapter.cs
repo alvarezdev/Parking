@@ -53,20 +53,24 @@ namespace Parking.Droid
             if (string.IsNullOrEmpty(text))
             {
                 vehicleList.Clear();
-                vehicleList = vehicleListActivity.GetUserList();
+                vehicleList = vehicleListActivity.GetVehicleList();
             }
             else
             {
                 List<VehicleDto> vehicleDtoList = new List<VehicleDto>();
-                foreach (var vehicle in vehicleListActivity.GetUserList())
+                foreach (var vehicle in vehicleListActivity.GetVehicleList())
                 {
-                    if (vehicle.Plate.Contains(text))                    
-                        vehicleDtoList.Add(vehicle); 
+                    if (vehicle.Plate.Contains(text))
+                    {
+                        vehicleDtoList.Add(vehicle);
+                    }                        
                 }
                 vehicleList = vehicleDtoList;
             }
-            if (vehicleList.Count == 0)            
-                Toast.MakeText(vehicleListActivity, Resource.String.list_is_empty, ToastLength.Short).Show();            
+            if (vehicleList.Count == 0)
+            {
+                Toast.MakeText(vehicleListActivity, Resource.String.list_is_empty, ToastLength.Short).Show();
+            }                           
             NotifyDataSetChanged();
         }
     }

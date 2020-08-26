@@ -47,7 +47,7 @@ namespace Parking.Data
             });
         }
 
-        public List<VehicleDto> GetListVehicle()
+        public List<VehicleDto> GetVehicleList()
         {
             List<VehicleDto> vehicleList = new List<VehicleDto>();
             var realm = GetRealmDatabase();

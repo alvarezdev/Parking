@@ -6,10 +6,10 @@ namespace Parking.Domain.Test
 {
     public class ParkingDomainTest : BaseTest
     {
-        private readonly ParkingDomain parkingDomain;
+        private readonly ParkingDomainServices parkingDomain;
         public ParkingDomainTest()
         {
-            parkingDomain = Resolve<ParkingDomain>();
+            parkingDomain = Resolve<ParkingDomainServices>();
             parkingDomain.DeleteAll();
         }
 
@@ -29,7 +29,7 @@ namespace Parking.Domain.Test
             parkingDomain.EnterParking(vehicleDto);
 
             //Assert
-            List<VehicleDto> list = parkingDomain.GetListVehicle();
+            List<VehicleDto> list = parkingDomain.GetVehicleList();
             var vehicle = list.Exists(v => v.Plate.Equals("FIS100"));
             Assert.True(vehicle);
         }
