@@ -4,10 +4,10 @@ namespace Parking.Domain
 {
     public interface IVehicleDao
     {
-        void AddVehicle(VehicleDto vehicleDto);
-        VehicleDto GetVehicle(string plate);
-        List<VehicleDto> GetVehicleList();
-        void DeleteVehicle(VehicleDto vehicleDto);
+        void AddVehicle(VehicleModel vehicleDto);
+        VehicleModel GetVehicle(string plate);
+        List<VehicleModel> GetVehicleList();
+        void DeleteVehicle(string plate);
         void DeleteAll();
     }
 }

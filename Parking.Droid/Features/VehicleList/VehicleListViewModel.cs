@@ -14,19 +14,19 @@ namespace Parking.Droid
             parkingDomain = BaseApplication.Resolve<ParkingDomainServices>();
         }
 
-        public List<VehicleDto> GetUserList()
+        public List<VehicleModel> GetUserList()
         {
             return parkingDomain.GetVehicleList();
         }
 
-        public void DeleteVehicle(VehicleDto vehicleDto)
+        public void DeleteVehicle(string plate)
         {
-            parkingDomain.LeaveVehicle(vehicleDto);
+            parkingDomain.LeaveVehicle(plate);
         }
 
-        public int CalculateValueParking(VehicleDto vehicleDto)
+        public int CalculateValueParking(VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime, DateTime vehicleDepartureTime)
         {
-            return parkingDomain.CalculateValueParking(vehicleDto);
+            return parkingDomain.CalculateValueParking(vehicleType, cylinderCapacity, vehicleEntryTime, vehicleDepartureTime);
         }
     }
 }

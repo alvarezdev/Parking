@@ -8,12 +8,12 @@ namespace Parking.Domain.Test
     {
         static UnityContainer DIContainer { get; set; }
 
-        protected ParkingDomainTestAux ParkingDomainTestAux;
+        protected ParkingDomainServicesTestAux ParkingDomainTestAux;
 
         public BaseTest()
         {
             DIContainer = new UnityContainer();
-            ParkingDomainTestAux = new ParkingDomainTestAux();
+            ParkingDomainTestAux = new ParkingDomainServicesTestAux();
             DIContainer.RegisterType<IVehicleDao, VehicleDaoMock>();
         }
 

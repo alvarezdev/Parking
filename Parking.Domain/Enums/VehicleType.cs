@@ -1,8 +1,8 @@
-﻿using System;
-namespace Parking.Domain
+﻿namespace Parking.Domain
 {
     public enum VehicleType
     {
-        Car, Motorcycle
+        Car,
+        Motorcycle
     }
 }

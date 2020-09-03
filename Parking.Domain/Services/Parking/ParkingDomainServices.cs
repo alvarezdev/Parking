@@ -11,7 +11,6 @@ namespace Parking.Domain
         private const string maxCapacityCarMsg = "Parking capacity for cars is full";
         private const string maxCapacityMotorcycleMsg = "Parking capacity for Motorcycles is full";
         private const string vehicleNotExistMsg = "This vehicle is not in the parking";
-        private const string emptyParking = "Empty parking";
         private const int maxCapacityCar = 20;
         private const int maxCapacityMotorcycle = 10;
         private const int maxCapacityParking = 30;
@@ -37,33 +36,38 @@ namespace Parking.Domain
             }         
         }
 
-        public void EnterParking(VehicleDto vehicleDto)
+        public void EnterParking(string plate, VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime)
         {
-            VehicleModel vehicleModel = new VehicleModel(vehicleDto);
-            vehicleModel.ValidateData(vehicleModel);
-            List<VehicleDto> vehicleDtoList = GetVehicleList();
-            if (vehicleDtoList.Count >= maxCapacityParking)
+            var vehicleModel = new VehicleModel
+            {
+                Plate = plate,
+                VehicleType = vehicleType,                
+                CylinderCapacity = cylinderCapacity,
+                VehicleEntryTime = vehicleEntryTime
+            };
+            List<VehicleModel> vehicleList = GetVehicleList();
+            if (vehicleList.Count >= maxCapacityParking)
             {
                 throw new BusinessException(fullParkingMsg);
             }
             else
             {
-                bool plateRepeat = CheckPlateRepeat(vehicleDtoList, vehicleDto);
-                bool checkDate = CheckDate(vehicleDto);
-                bool maxCapacityVehicle = MaxCapacityVehicle(vehicleDtoList, vehicleDto.VehicleType);
+                bool plateRepeat = CheckPlateRepeat(vehicleList, vehicleModel);
+                bool checkDate = CheckDate(vehicleModel);
+                bool maxCapacityVehicle = MaxCapacityVehicle(vehicleList, vehicleModel.VehicleType);
                 if (plateRepeat && checkDate && maxCapacityVehicle)
                 {
-                    vehicleDao.AddVehicle(vehicleDto);
+                    vehicleDao.AddVehicle(vehicleModel);
                 }
             }
         }
 
-        private bool CheckPlateRepeat(List<VehicleDto> vehicleDtoList, VehicleDto vehicleDto)
+        private bool CheckPlateRepeat(List<VehicleModel> vehicleDtoList, VehicleModel vehicleModel)
         {
             bool vehicleExist = false;
             foreach (var vehicle in vehicleDtoList)
             {
-                if (vehicleDto.Plate.Equals(vehicle.Plate))
+                if (vehicleModel.Plate.Equals(vehicle.Plate))
                 {
                     vehicleExist = true;
                 }                    
@@ -79,10 +83,10 @@ namespace Parking.Domain
                 
         }
 
-        private bool CheckDate(VehicleDto vehicleDto)
+        private bool CheckDate(VehicleModel vehicleModel)
         {
-            var dayOfWeek = vehicleDto.VehicleEntryTime.DayOfWeek;
-            if ((dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Monday) && vehicleDto.Plate.Substring(0, 1).Equals("A"))
+            var dayOfWeek = vehicleModel.VehicleEntryTime.DayOfWeek;
+            if ((dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Monday) && vehicleModel.Plate.Substring(0, 1).Equals("A"))
             {
                 throw new BusinessException(unathorizedEntry);
             }                
@@ -93,13 +97,13 @@ namespace Parking.Domain
                 
         }
 
-        private bool MaxCapacityVehicle(List<VehicleDto> vehicleDtoList, VehicleType vehicleType)
+        private bool MaxCapacityVehicle(List<VehicleModel> vehicleModelList, VehicleType vehicleType)
         {
             int capacityNumber = 0;
-            for (int i = 0; i < vehicleDtoList.Count; i++)
+            for (int i = 0; i < vehicleModelList.Count; i++)
             {
-                VehicleDto vehicleDto = vehicleDtoList[i];
-                if (vehicleDto.VehicleType == vehicleType)
+                VehicleModel vehicleModel = vehicleModelList[i];
+                if (vehicleModel.VehicleType == vehicleType)
                 {
                     capacityNumber++;
                 }                    
@@ -123,40 +127,33 @@ namespace Parking.Domain
             return true;
         }
 
-        public List<VehicleDto> GetVehicleList()
-        {          
-            if (GetVehicleList().Count > 0)
-            {
-                return vehicleDao.GetVehicleList();
-            }
-            else
-            {
-                throw new DataBaseException(emptyParking);
-            }
+        public List<VehicleModel> GetVehicleList()
+        {
+            return vehicleDao.GetVehicleList();            
         }
 
-        public VehicleDto GetVehicle(string plate)
+        public VehicleModel GetVehicle(string plate)
         {
-            VehicleDto vehicleDto = vehicleDao.GetVehicle(plate);
-            if (vehicleDto == null)
+            VehicleModel vehicleModel = vehicleDao.GetVehicle(plate);
+            if (vehicleModel == null)
             {
                 throw new DataBaseException(vehicleNotExistMsg);
             }                
-            return vehicleDto;
+            return vehicleModel;
         }
 
-        public void LeaveVehicle(VehicleDto vehicleDto)
+        public void LeaveVehicle(string plate)
         {
-            if (GetVehicle(vehicleDto.Plate) != null)
+            if (GetVehicle(plate) != null)
             {
-                vehicleDao.DeleteVehicle(vehicleDto);
+                vehicleDao.DeleteVehicle(plate);
             }            
         }
 
-        public int CalculateValueParking(VehicleDto vehicleDto)
+        public int CalculateValueParking(VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime, DateTime vehicleDepartureTime)
         {
-            long entryHour = (long)vehicleDto.VehicleEntryTime.Subtract(new DateTime(1970, 1, 1)).TotalHours;
-            long departureHour = (long)vehicleDto.VehicleDepartureTime.Subtract(new DateTime(1970, 1, 1)).TotalHours;
+            long entryHour = (long)vehicleEntryTime.Subtract(new DateTime(1970, 1, 1)).TotalHours;
+            long departureHour = (long)vehicleDepartureTime.Subtract(new DateTime(1970, 1, 1)).TotalHours;
             int time = (int)(departureHour - entryHour);
 
             time = (time == 0) ? time++ : time;
@@ -164,7 +161,7 @@ namespace Parking.Domain
             int hourPrice = 0;
             int dayPrice = 0;
 
-            switch (vehicleDto.VehicleType)
+            switch (vehicleType)
             {
                 case VehicleType.Car:
                     hourPrice = carHourValue;
@@ -195,7 +192,7 @@ namespace Parking.Domain
                 }                    
                 result = dayPrice + (hours * hourPrice);
             }
-            if (vehicleDto.VehicleType == VehicleType.Motorcycle && vehicleDto.CylinderCapacity > cylinderCapacityGreater)
+            if (vehicleType == VehicleType.Motorcycle && cylinderCapacity > cylinderCapacityGreater)
             {
                 result += addMotorcyclePay;
             }                

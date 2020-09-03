@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Parking.Domain;
 using Realms;
 
@@ -8,8 +9,13 @@ namespace Parking.Data
 {
     public class VehicleDaoReal : IVehicleDao
     {
+        IMapper iMapperVehicleEntity;
+        IMapper iMapperVehicleModule;
+
         public VehicleDaoReal()
         {
+            MapperToVehicleEntity();
+            MapperToVehicleModel();
         }
 
         internal Realm GetRealmDatabase()
@@ -18,10 +24,28 @@ namespace Parking.Data
             return Realm.GetInstance(config);
         }
 
-        public void AddVehicle(VehicleDto vehicleDto)
+        private void MapperToVehicleEntity()
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<DateTime, long>().ConvertUsing(source => new DateTimeToLong().Convert(source));
+                cfg.CreateMap<VehicleModel, VehicleEntity>();
+            });
+            iMapperVehicleEntity = config.CreateMapper();            
+        }
+
+        private void MapperToVehicleModel()
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<long, DateTime>().ConvertUsing(source => new LongToDateTime().Convert(source));
+                cfg.CreateMap<VehicleEntity, VehicleModel>();
+            });
+            iMapperVehicleModule = config.CreateMapper();
+        }
+
+        public void AddVehicle(VehicleModel vehicleModel)
         {
             var realm = GetRealmDatabase();
-            VehicleEntity vehicleEntity = new VehicleEntity(vehicleDto);
+            var vehicleEntity = iMapperVehicleEntity.Map<VehicleModel, VehicleEntity>(vehicleModel);
             realm.Write(() =>
             {
                 realm.Add(vehicleEntity, true);
@@ -37,50 +61,38 @@ namespace Parking.Data
             });
         }
 
-        public void DeleteVehicle(VehicleDto vehicleDto)
+        public void DeleteVehicle(string plate)
         {
             var realm = GetRealmDatabase();
-            var vehicleEntity = realm.All<VehicleEntity>().Where(v => v.Plate.Equals(vehicleDto.Plate)).ToList().FirstOrDefault();
+            var vehicleEntity = realm.All<VehicleEntity>().Where(v => v.Plate.Equals(plate)).ToList().FirstOrDefault();
             realm.Write(() =>
             {
                 realm.Remove(vehicleEntity);
             });
         }
 
-        public List<VehicleDto> GetVehicleList()
+        public List<VehicleModel> GetVehicleList()
         {
-            List<VehicleDto> vehicleList = new List<VehicleDto>();
+            List<VehicleModel> vehicleList = new List<VehicleModel>();
             var realm = GetRealmDatabase();
             List<VehicleEntity> listVehicleDB = realm.All<VehicleEntity>().ToList();
             foreach (var vehicleDB in listVehicleDB)
             {
-                var vehicleDTO = new VehicleDto
-                {
-                    Plate = vehicleDB.Plate,
-                    VehicleType = Enum.Parse<VehicleType>(vehicleDB.VehicleType),                    
-                    CylinderCapacity = vehicleDB.CylinderCapacity,
-                    VehicleEntryTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(vehicleDB.VehicleEntryTime).ToUniversalTime(),
-                };
-                vehicleList.Add(vehicleDTO);
+                VehicleModel vehicleModel = iMapperVehicleModule.Map<VehicleEntity, VehicleModel>(vehicleDB);
+                vehicleList.Add(vehicleModel);
             }
             return vehicleList;
         }
 
-        public VehicleDto GetVehicle(string plate)
+        public VehicleModel GetVehicle(string plate)
         {
             var realm = GetRealmDatabase();
             var vehicleEntity = realm.All<VehicleEntity>().Where(v => v.Plate.Equals(plate)).ToList().FirstOrDefault();
 
             if (vehicleEntity != null)
             {
-                var vehicleDTO = new VehicleDto
-                {                    
-                    Plate = vehicleEntity.Plate,
-                    VehicleType = Enum.Parse<VehicleType>(vehicleEntity.VehicleType),
-                    CylinderCapacity = vehicleEntity.CylinderCapacity,
-                    VehicleEntryTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(vehicleEntity.VehicleEntryTime).ToUniversalTime(),
-                };
-                return vehicleDTO;
+                VehicleModel vehicleModel = iMapperVehicleModule.Map<VehicleEntity, VehicleModel>(vehicleEntity);
+                return vehicleModel;
             }
             return null;
         }

@@ -10,10 +10,10 @@ namespace Parking.Droid
 {
     public class VehicleAdapter : RecyclerView.Adapter
     {
-        public List<VehicleDto> vehicleList;
+        public List<VehicleModel> vehicleList;
         private VehicleListActivity vehicleListActivity;
 
-        public VehicleAdapter(List<VehicleDto> vehicleList, VehicleListActivity vehicleListActivity)
+        public VehicleAdapter(List<VehicleModel> vehicleList, VehicleListActivity vehicleListActivity)
         {
             this.vehicleList = vehicleList;
             this.vehicleListActivity = vehicleListActivity;
@@ -29,7 +29,7 @@ namespace Parking.Droid
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder vehicleHolder, int position)
         {
-            VehicleDto vehicleDto = vehicleList.ElementAt(position);
+            VehicleModel vehicleDto = vehicleList.ElementAt(position);
             VehicleItemList vehicleItemList = vehicleHolder as VehicleItemList;
             vehicleItemList.BindVehicle(vehicleDto);
             vehicleItemList.leave.Click -= ShowDialogConfirm;
@@ -41,7 +41,7 @@ namespace Parking.Droid
         {
             View view = sender as View;
             int position = (int)view.Tag;
-            VehicleDto vehicle = vehicleList.ElementAt(position);
+            VehicleModel vehicle = vehicleList.ElementAt(position);
             DialogFragmentConfirmVehicleDeparture confirmVehicleDeparture =
                     new DialogFragmentConfirmVehicleDeparture(vehicle, position, vehicleListActivity);
             confirmVehicleDeparture.Show(vehicleListActivity.SupportFragmentManager.BeginTransaction(),
@@ -57,7 +57,7 @@ namespace Parking.Droid
             }
             else
             {
-                List<VehicleDto> vehicleDtoList = new List<VehicleDto>();
+                List<VehicleModel> vehicleDtoList = new List<VehicleModel>();
                 foreach (var vehicle in vehicleListActivity.GetVehicleList())
                 {
                     if (vehicle.Plate.Contains(text))

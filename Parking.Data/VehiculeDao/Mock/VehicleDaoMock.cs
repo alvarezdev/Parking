@@ -5,16 +5,16 @@ namespace Parking.Data
 {
     public class VehicleDaoMock : IVehicleDao
     {
-        private List<VehicleDto> vehicleList;
+        private List<VehicleModel> vehicleList;
 
         public VehicleDaoMock()
         {
-            vehicleList = new List<VehicleDto>();
+            vehicleList = new List<VehicleModel>();
         }
 
-        public void AddVehicle(VehicleDto vehicleDto)
+        public void AddVehicle(VehicleModel vehicleModel)
         {
-            vehicleList.Add(vehicleDto);
+            vehicleList.Add(vehicleModel);
         }
 
         public void DeleteAll()
@@ -25,25 +25,26 @@ namespace Parking.Data
             }                           
         }
 
-        public void DeleteVehicle(VehicleDto vehicleDto)
+        public void DeleteVehicle(string plate)
         {
-            if (GetVehicle(vehicleDto.Plate) != null)
+            var vehicle = GetVehicle(plate);
+            if  (vehicle != null)
             {
-                vehicleList.Remove(vehicleDto);
+                vehicleList.Remove(vehicle);
             }
                            
         }
 
-        public List<VehicleDto> GetVehicleList()
+        public List<VehicleModel> GetVehicleList()
         {
             return vehicleList;
         }
 
-        public VehicleDto GetVehicle(string plate)
+        public VehicleModel GetVehicle(string plate)
         {
             for (int i = 0; i < vehicleList.Count; i++)
             {
-                VehicleDto vehicleDto = vehicleList[i];
+                VehicleModel vehicleDto = vehicleList[i];
                 if (vehicleDto.Plate.Equals(plate))                
                     return vehicleDto;                
             }

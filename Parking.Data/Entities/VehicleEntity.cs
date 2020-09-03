@@ -15,10 +15,10 @@ namespace Parking.Data
 
         public VehicleEntity(VehicleDto vehicleDto)
         {
-            Plate = vehicleDto.Plate;
+            /*Plate = vehicleDto.Plate;
             VehicleType = vehicleDto.VehicleType.ToString();            
             CylinderCapacity = vehicleDto.CylinderCapacity;
-            VehicleEntryTime = (long)vehicleDto.VehicleEntryTime.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+            VehicleEntryTime = (long)vehicleDto.VehicleEntryTime.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;*/
         }
     }
 }

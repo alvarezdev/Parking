@@ -47,7 +47,7 @@ namespace Parking.Droid
             vehicleRecyclerView.SetAdapter(vehicleAdapter);
         }
 
-        public List<VehicleDto> GetVehicleList()
+        public List<VehicleModel> GetVehicleList()
         {
             try
             {
@@ -63,20 +63,19 @@ namespace Parking.Droid
                 Log.Error(TAG, e.Message);
                 Toast.MakeText(this, Resource.String.error_message, ToastLength.Short).Show();
             }
-            return new List<VehicleDto>();        
+            return new List<VehicleModel>();        
         }
 
-        public int CalculateValueParking(VehicleDto vehicleDto)
+        public int CalculateValueParking(VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime)
         {
-            vehicleDto.VehicleDepartureTime = DateTime.UtcNow;
-            return vehicleListViewModel.CalculateValueParking(vehicleDto);
+            return vehicleListViewModel.CalculateValueParking(vehicleType, cylinderCapacity, vehicleEntryTime, DateTime.UtcNow);
         }
 
-        public void DeleteVehicleFromDialogFragment(VehicleDto vehicleDto, int position)
+        public void DeleteVehicleFromDialogFragment(string plate, int position)
         {
             try
             {
-                vehicleListViewModel.DeleteVehicle(vehicleDto);
+                vehicleListViewModel.DeleteVehicle(plate);
             }
             catch (DataBaseException e)
             {

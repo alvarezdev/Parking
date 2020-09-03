@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Parking.Domain.Test
 {
-    public class ParkingDomainTestAux
+    public class ParkingDomainServicesTestAux
     {
-        public ParkingDomainTestAux() { }
+        public ParkingDomainServicesTestAux() { }
 
 
-        public List<VehicleDto> CreateListVehicle()
+        public List<VehicleModel> CreateListVehicle()
         {
-            List<VehicleDto> vehicleDtoList = new List<VehicleDto>();
+            List<VehicleModel> vehicleList = new List<VehicleModel>();
             for (int i = 0; i < 30; i++)
             {
                 string plate;
@@ -21,29 +21,31 @@ namespace Parking.Domain.Test
                 else
                 {
                     plate = "FIS1" + i;
-                }                    
-                
-                VehicleDto vehicleDto = new VehicleDto();
-                vehicleDto.Plate = plate;
+                }
+
+                VehicleModel vehicleModel = new VehicleModel
+                {
+                    Plate = plate
+                };
                 if (i <= 19)
                 {
-                    vehicleDto.VehicleType = VehicleType.Car;
-                    vehicleDto.CylinderCapacity = 1500;
+                    vehicleModel.VehicleType = VehicleType.Car;
+                    vehicleModel.CylinderCapacity = 1500;
                 }
                 else
                 {
-                    vehicleDto.VehicleType = VehicleType.Motorcycle;
-                    vehicleDto.CylinderCapacity = 100;
+                    vehicleModel.VehicleType = VehicleType.Motorcycle;
+                    vehicleModel.CylinderCapacity = 100;
                 }
-                vehicleDto.VehicleEntryTime = DateTime.UtcNow;
-                vehicleDtoList.Add(vehicleDto);
+                vehicleModel.VehicleEntryTime = DateTime.UtcNow;
+                vehicleList.Add(vehicleModel);
             }
-            return vehicleDtoList;
+            return vehicleList;
         }
 
-        public List<VehicleDto> CreateListCar()
+        public List<VehicleModel> CreateListCar()
         {
-            List<VehicleDto> vehicleDtoList = new List<VehicleDto>();
+            List<VehicleModel> vehicleDtoList = new List<VehicleModel>();
             for (int i = 0; i < 20; i++)
             {
                 string plate;
@@ -54,9 +56,9 @@ namespace Parking.Domain.Test
                 else
                 {
                     plate = "FIS1" + i;
-                }                   
+                }
 
-                VehicleDto vehicleDto = new VehicleDto
+                VehicleModel vehicleDto = new VehicleModel
                 {
                     Plate = plate,
                     VehicleType = VehicleType.Car,
@@ -68,12 +70,12 @@ namespace Parking.Domain.Test
             return vehicleDtoList;
         }
 
-        public List<VehicleDto> CreateListMotorCycle()
+        public List<VehicleModel> CreateListMotorCycle()
         {
-            List<VehicleDto> vehicleDtoList = new List<VehicleDto>();
+            List<VehicleModel> vehicleDtoList = new List<VehicleModel>();
             for (int i = 0; i < 10; i++)
             {
-                VehicleDto vehicleDto = new VehicleDto
+                VehicleModel vehicleDto = new VehicleModel
                 {
                     Plate = "ZBC10" + i,
                     VehicleType = VehicleType.Motorcycle,

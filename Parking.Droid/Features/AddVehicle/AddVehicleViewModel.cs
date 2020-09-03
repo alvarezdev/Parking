@@ -1,4 +1,5 @@
-﻿using Android.Arch.Lifecycle;
+﻿using System;
+using Android.Arch.Lifecycle;
 using Parking.Domain;
 
 namespace Parking.Droid
@@ -12,9 +13,9 @@ namespace Parking.Droid
             parkingDomain = BaseApplication.Resolve<ParkingDomainServices>();
         }
 
-        public void AddVehicle(VehicleDto vehicleDto)
+        public void AddVehicle(string plate, VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime)
         {
-            parkingDomain.EnterParking(vehicleDto);
+            parkingDomain.EnterParking(plate, vehicleType, cylinderCapacity, vehicleEntryTime);
         }
     }
 

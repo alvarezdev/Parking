@@ -49,49 +49,37 @@ namespace Parking.Droid
         }
 
         private void Accept(object sender, EventArgs args)
-        {
-            string plateVehicle = plate.Text;
-            string cylinderCapacityVehicle = cylinderCapacity.Text;
-            if (!string.IsNullOrEmpty(plateVehicle) && !string.IsNullOrEmpty(cylinderCapacityVehicle))
+        {            
+            int selectedId = vehicleGroup.CheckedRadioButtonId;
+            vehicleOption = FindViewById<RadioButton>(selectedId);
+            VehicleType vehicleType = vehicleOption.Text.Equals("Carro") ? VehicleType.Car : VehicleType.Motorcycle;
+            try
             {
-                VehicleDto vehicleDto = new VehicleDto();
-                int selectedId = vehicleGroup.CheckedRadioButtonId;
-                vehicleOption = FindViewById<RadioButton>(selectedId);
-                string getStringVehicleType = vehicleOption.Text;
-                VehicleType vehicleType;
-                if (getStringVehicleType.Equals("Carro"))
-                {
-                    vehicleType = VehicleType.Car;
-                }
-                else
-                {
-                    vehicleType = VehicleType.Motorcycle;
-                }
+                addVehicleViewModel.AddVehicle(plate.Text, vehicleType, ProcessCylinderCapacity(cylinderCapacity.Text), DateTime.UtcNow);
+                Toast.MakeText(this, Resource.String.add_vehicle_message_successful, ToastLength.Short).Show();
+                Finish();
+            }
+            catch (BusinessException e)
+            {
+                Log.Error(TAG, e.Message);
+                Toast.MakeText(this, e.Message, ToastLength.Short).Show();
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e.Message);
+                Toast.MakeText(this, Resource.String.add_vehicle_message_error, ToastLength.Short).Show();  
+            }
+        }
 
-                vehicleDto.Plate = plateVehicle;
-                vehicleDto.VehicleType = vehicleType;
-                vehicleDto.CylinderCapacity = double.Parse(cylinderCapacityVehicle);
-                vehicleDto.VehicleEntryTime = DateTime.UtcNow;
-                try
-                {
-                    addVehicleViewModel.AddVehicle(vehicleDto);
-                    Toast.MakeText(this, Resource.String.add_vehicle_message_successful, ToastLength.Short).Show();
-                    Finish();
-                }
-                catch (BusinessException e)
-                {
-                    Log.Error(TAG, e.Message);
-                    Toast.MakeText(this, e.Message, ToastLength.Short).Show();
-                }
-                catch (Exception e)
-                {
-                    Log.Error(TAG, e.Message);
-                    Toast.MakeText(this, Resource.String.add_vehicle_message_error, ToastLength.Short).Show();  
-                }
+        private double ProcessCylinderCapacity(string cylinderCapacity)
+        {
+            if(string.IsNullOrEmpty(cylinderCapacity))
+            {
+                return 0;
             }
             else
             {
-                Toast.MakeText(this, Resource.String.message_warring_add_vehicle, ToastLength.Short).Show();
+                return double.Parse(cylinderCapacity);
             }
         }
 

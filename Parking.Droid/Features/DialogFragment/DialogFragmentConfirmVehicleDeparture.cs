@@ -13,13 +13,13 @@ namespace Parking.Droid
         private Button accept;
         private Button cancel;
 
-        private VehicleDto vehicleDto;
+        private VehicleModel vehicleModel;
         private int position;
         private VehicleListActivity vehicleListActivity;
 
-        public DialogFragmentConfirmVehicleDeparture(VehicleDto vehicleDto, int position, VehicleListActivity vehicleListActivity)
+        public DialogFragmentConfirmVehicleDeparture(VehicleModel vehicleModel, int position, VehicleListActivity vehicleListActivity)
         {
-            this.vehicleDto = vehicleDto;
+            this.vehicleModel = vehicleModel;
             this.position = position;
             this.vehicleListActivity = vehicleListActivity;
         }
@@ -31,13 +31,13 @@ namespace Parking.Droid
             accept = view.FindViewById<Button>(Resource.Id.accept_dialog);
             cancel = view.FindViewById<Button>(Resource.Id.cancel_dialog);
 
-            int valuePayForParking = vehicleListActivity.CalculateValueParking(vehicleDto);
+            int valuePayForParking = vehicleListActivity.CalculateValueParking(vehicleModel.VehicleType, vehicleModel.CylinderCapacity, vehicleModel.VehicleEntryTime);
 
             payMessage.Text = GetString(Resource.String.text_pay_message_dialog_fragment) + " " + valuePayForParking;
 
             accept.Click += delegate
             {
-                vehicleListActivity.DeleteVehicleFromDialogFragment(vehicleDto, position);
+                vehicleListActivity.DeleteVehicleFromDialogFragment(vehicleModel.Plate, position);
                 Dialog.Dismiss();
             };
 

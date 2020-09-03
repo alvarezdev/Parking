@@ -23,14 +23,14 @@ namespace Parking.Droid
             leave = itemView.FindViewById<Button>(Resource.Id.leave_vehicle);
         }
 
-        public void BindVehicle(VehicleDto vehicleDto)
+        public void BindVehicle(VehicleModel vehicleModel)
         {
-            if (vehicleDto != null)
+            if (vehicleModel != null)
             {
-                plate.Text = vehicleDto.Plate;
-                vehicleType.Text = vehicleDto.VehicleType.ToString();
-                cylinderCapacity.Text = vehicleDto.CylinderCapacity.ToString();
-                entryTime.Text = vehicleDto.VehicleEntryTime.ToLocalTime().ToString("dd-M-yyyy hh:mm:ss");
+                plate.Text = vehicleModel.Plate;
+                vehicleType.Text = vehicleModel.VehicleType.ToString();
+                cylinderCapacity.Text = vehicleModel.CylinderCapacity.ToString();
+                entryTime.Text = vehicleModel.VehicleEntryTime.ToLocalTime().ToString("dd-M-yyyy hh:mm:ss");
             }
         }
     }
