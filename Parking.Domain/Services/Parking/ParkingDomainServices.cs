@@ -38,13 +38,7 @@ namespace Parking.Domain
 
         public void EnterParking(string plate, VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime)
         {
-            var vehicleModel = new VehicleModel
-            {
-                Plate = plate,
-                VehicleType = vehicleType,                
-                CylinderCapacity = cylinderCapacity,
-                VehicleEntryTime = vehicleEntryTime
-            };
+            var vehicleModel = new VehicleModel(plate, vehicleType,cylinderCapacity, vehicleEntryTime);
             List<VehicleModel> vehicleList = GetVehicleList();
             if (vehicleList.Count >= maxCapacityParking)
             {

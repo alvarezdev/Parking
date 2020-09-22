@@ -8,6 +8,7 @@
     <Folder Include="Entities\" />
     <Folder Include="VehiculeDao\" />
     <Folder Include="Mappers\" />
+    <Folder Include="Mappers\Util\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Parking.Domain\Parking.Domain.csproj" />

@@ -12,6 +12,8 @@ namespace Parking.Domain
         private double cylinderCapacity;
         private DateTime vehicleDepartureTime;
 
+        private string messageException;
+
         private bool validatePlate;
         private bool validatecylinderCapacity;
         private bool validatevehicleDepartureTime;
@@ -27,7 +29,7 @@ namespace Parking.Domain
                 }
                 else
                 {
-                    throw new BusinessException(nullVehiclePlateMsg);
+                    validatePlate = true;
                 }
             }
         }      
@@ -44,7 +46,7 @@ namespace Parking.Domain
                 }
                 else
                 {
-                    throw new BusinessException(zeroCylinderCapacityMsg);
+                    validatecylinderCapacity = true;
                 }
             }
         }
@@ -61,13 +63,37 @@ namespace Parking.Domain
                 }
                 else
                 {
-                    throw new BusinessException(vehicleDepartureTimeMsg);
+                    validatevehicleDepartureTime = true;
                 }
             }
         }
 
         public VehicleModel()
         {
+        }
+
+        public VehicleModel(string plate, VehicleType vehicleType, double cylinderCapacity, DateTime vehicleEntryTime)
+        {
+            Plate = plate;
+            VehicleType = vehicleType;
+            CylinderCapacity = cylinderCapacity;
+            VehicleEntryTime = vehicleEntryTime;
+            if(validatePlate)
+            {
+                messageException = nullVehiclePlateMsg;
+            }
+            if(validatecylinderCapacity)
+            {
+                messageException = messageException + " - " + zeroCylinderCapacityMsg;
+            }
+            if(validatevehicleDepartureTime)
+            {
+                messageException = messageException + " - " + vehicleDepartureTimeMsg;
+            }
+            if (validatePlate || validatecylinderCapacity || validatevehicleDepartureTime)
+            {
+                throw new BusinessException(messageException);
+            }
         }
 
         private bool ValidatePlate(string plate)

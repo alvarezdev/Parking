@@ -9,13 +9,11 @@ namespace Parking.Data
 {
     public class VehicleDaoReal : IVehicleDao
     {
-        IMapper iMapperVehicleEntity;
-        IMapper iMapperVehicleModule;
+        VehicleEntityMapper vehicleEntityMapper;
 
         public VehicleDaoReal()
         {
-            MapperToVehicleEntity();
-            MapperToVehicleModel();
+            vehicleEntityMapper = new VehicleEntityMapper();
         }
 
         internal Realm GetRealmDatabase()
@@ -24,28 +22,10 @@ namespace Parking.Data
             return Realm.GetInstance(config);
         }
 
-        private void MapperToVehicleEntity()
-        {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<DateTime, long>().ConvertUsing(source => new DateTimeToLong().Convert(source));
-                cfg.CreateMap<VehicleModel, VehicleEntity>();
-            });
-            iMapperVehicleEntity = config.CreateMapper();            
-        }
-
-        private void MapperToVehicleModel()
-        {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<long, DateTime>().ConvertUsing(source => new LongToDateTime().Convert(source));
-                cfg.CreateMap<VehicleEntity, VehicleModel>();
-            });
-            iMapperVehicleModule = config.CreateMapper();
-        }
-
         public void AddVehicle(VehicleModel vehicleModel)
         {
             var realm = GetRealmDatabase();
-            var vehicleEntity = iMapperVehicleEntity.Map<VehicleModel, VehicleEntity>(vehicleModel);
+            var vehicleEntity = vehicleEntityMapper.MapModelToDbEntity(vehicleModel);
             realm.Write(() =>
             {
                 realm.Add(vehicleEntity, true);
@@ -78,7 +58,7 @@ namespace Parking.Data
             List<VehicleEntity> listVehicleDB = realm.All<VehicleEntity>().ToList();
             foreach (var vehicleDB in listVehicleDB)
             {
-                VehicleModel vehicleModel = iMapperVehicleModule.Map<VehicleEntity, VehicleModel>(vehicleDB);
+                VehicleModel vehicleModel = vehicleEntityMapper.MapDbEntityToModel(vehicleDB);
                 vehicleList.Add(vehicleModel);
             }
             return vehicleList;
@@ -91,7 +71,7 @@ namespace Parking.Data
 
             if (vehicleEntity != null)
             {
-                VehicleModel vehicleModel = iMapperVehicleModule.Map<VehicleEntity, VehicleModel>(vehicleEntity);
+                VehicleModel vehicleModel = vehicleEntityMapper.MapDbEntityToModel(vehicleEntity);
                 return vehicleModel;
             }
             return null;

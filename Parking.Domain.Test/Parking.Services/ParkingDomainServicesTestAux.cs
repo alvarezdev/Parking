@@ -27,6 +27,7 @@ namespace Parking.Domain.Test
                 {
                     Plate = plate
                 };
+
                 if (i <= 19)
                 {
                     vehicleModel.VehicleType = VehicleType.Car;
@@ -58,14 +59,8 @@ namespace Parking.Domain.Test
                     plate = "FIS1" + i;
                 }
 
-                VehicleModel vehicleDto = new VehicleModel
-                {
-                    Plate = plate,
-                    VehicleType = VehicleType.Car,
-                    CylinderCapacity = 1500,
-                    VehicleEntryTime = DateTime.UtcNow
-                };
-                vehicleDtoList.Add(vehicleDto);
+                VehicleModel vehicleModel = new VehicleModel(plate, VehicleType.Car, 1500, DateTime.UtcNow);
+                vehicleDtoList.Add(vehicleModel);
             }
             return vehicleDtoList;
         }
@@ -75,14 +70,8 @@ namespace Parking.Domain.Test
             List<VehicleModel> vehicleDtoList = new List<VehicleModel>();
             for (int i = 0; i < 10; i++)
             {
-                VehicleModel vehicleDto = new VehicleModel
-                {
-                    Plate = "ZBC10" + i,
-                    VehicleType = VehicleType.Motorcycle,
-                    CylinderCapacity = 100,
-                    VehicleEntryTime = DateTime.UtcNow
-                };
-                vehicleDtoList.Add(vehicleDto);
+                VehicleModel vehicleModel = new VehicleModel("ZBC10" + i, VehicleType.Motorcycle, 100, DateTime.UtcNow);
+                vehicleDtoList.Add(vehicleModel);
             }
             return vehicleDtoList;
         }
